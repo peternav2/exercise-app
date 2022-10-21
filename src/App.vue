@@ -1,91 +1,105 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
+<!-- eslint-disable vue/no-export-in-script-setup -->
+<script>
+import Nav from "./components/Nav.vue";
+import { ref } from "vue";
+
+export default {
+  setup() {
+    const newWorkout = ref("");
+
+    const workouts = ref([]);
+
+    function addNewWorkout() {
+      workouts.value.push({
+        id: Date.now(),
+        done: false,
+        content: newWorkout.value,
+      });
+      newWorkout.value = "";
+    }
+    function toggleDone(todo) {
+      todo.done = !todo.done;
+    }
+
+    function markAllDone() {
+      workouts.value.forEach((todo) => {
+        todo.done = true;
+      });
+    }
+
+    function removeWorkout(index) {
+      workouts.value.splice(index, 1);
+    }
+
+    return {
+      newWorkout,
+      addNewWorkout,
+      workouts,
+      toggleDone,
+      removeWorkout,
+      markAllDone,
+    };
+  },
+};
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
+  <div class="container">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="src\assets\logo.jfif" width="75" height="max" />
+        </a>
+      </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item"> Home </a>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+          <a class="navbar-item"> Documentation </a>
 
-  <RouterView />
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link"> More </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item"> About </a>
+              <a class="navbar-item"> Jobs </a>
+              <a class="navbar-item"> Contact </a>
+              <hr class="navbar-divider" />
+              <a class="navbar-item"> Report an issue </a>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary">
+                <strong>Sign up</strong>
+              </a>
+              <a class="button is-light"> Log in </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container">
+    <form @submit.prevent="addNewWorkout">
+    <label>New Todo</label>
+    <input v-model="newWorkout" name="newTodo">
+    <button class="button">Add</button>
+  </form>
+  </div>
+  
+  <hr />
+
+  <ol>
+    <li v-for="(workout, index) in workouts" :key="workout.id">
+      <h3>
+        {{ workout.content }}
+      </h3>
+      <button @click="removeWorkout(index)">Remove</button>
+    </li>
+  </ol>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
