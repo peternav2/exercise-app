@@ -17,15 +17,7 @@ export default {
       });
       newWorkout.value = "";
     }
-    function toggleDone(todo) {
-      todo.done = !todo.done;
-    }
-
-    function markAllDone() {
-      workouts.value.forEach((todo) => {
-        todo.done = true;
-      });
-    }
+  
 
     function removeWorkout(index) {
       workouts.value.splice(index, 1);
@@ -35,9 +27,7 @@ export default {
       newWorkout,
       addNewWorkout,
       workouts,
-      toggleDone,
       removeWorkout,
-      markAllDone,
     };
   },
 };
