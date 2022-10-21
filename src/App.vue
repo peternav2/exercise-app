@@ -38,7 +38,7 @@ export default {
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="https://bulma.io">
-          <img src="src\assets\logo.jfif" width="75" height="max" />
+          <img src="src\assets\logo.png" width="75" height="max" />
         </a>
       </div>
 
