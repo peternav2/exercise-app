@@ -17,7 +17,6 @@ export default {
       });
       newWorkout.value = "";
     }
-  
 
     function removeWorkout(index) {
       workouts.value.splice(index, 1);
@@ -34,49 +33,16 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-    
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-          <a class="navbar-item"> Home </a>
-
-          <a class="navbar-item"> Documentation </a>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link"> More </a>
-
-            <div class="navbar-dropdown">
-              <a class="navbar-item"> About </a>
-              <a class="navbar-item"> Jobs </a>
-              <a class="navbar-item"> Contact </a>
-              <hr class="navbar-divider" />
-              <a class="navbar-item"> Report an issue </a>
-            </div>
-          </div>
-        </div>
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light"> Log in </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
+  <Nav> </Nav>
 
   <div class="container">
     <form @submit.prevent="addNewWorkout">
-    <label>New Todo</label>
-    <input v-model="newWorkout" name="newTodo">
-    <button class="button">Add</button>
-  </form>
+      <label>New workout</label>
+      <input v-model="newWorkout" name="newTodo" />
+      <button class="button">Add</button> 
+      </form>
   </div>
-  
+
   <hr />
 
   <ol>
